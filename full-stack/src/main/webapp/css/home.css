@@ -54,8 +54,8 @@ main{
 
 
 .book-cover img{
-    max-width: 192px;
-    max-height: 247px;
+    max-width: 191px;
+    max-height: 246px;
 }
 .author{
     font-size: 1.1rem;
@@ -70,7 +70,7 @@ main{
 .book_quantity {
     font-size: 0.9rem;
     color: #555;
-    margin-top: 5px;
+    margin-top: 6px;
 }
 .book-container svg{
     position: absolute;
