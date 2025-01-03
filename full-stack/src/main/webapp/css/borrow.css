@@ -11,11 +11,11 @@ main{
 }
 .title{
     color: burlywood;
-    font-size: 4rem;
+    font-size: 5rem;
     text-align: center;
 }
 .borrow-form{
-    width: 70VW;
+    width: 71VW;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -42,7 +42,7 @@ input{
     font-size: 1.4rem;
 }
 input::placeholder{
-    color: rgb(126, 126, 126);
+    color: rgb(128, 128, 128);
 }
 input[name="name"]{
     margin-left: 7rem;
@@ -109,9 +109,9 @@ input[name="Return Date"]{
 }
 .verificatoin-btn{
     width: 60%;
-    height: 3rem;
+    height: 4rem;
     font-size: 1rem;
-    border-radius: 10px;
+    border-radius: 11px;
     font-weight: bold;
     color: white;
     border: 1px solid white;
