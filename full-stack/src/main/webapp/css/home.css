@@ -86,7 +86,7 @@ main{
 }
 .show {
     display: block;
-    animation: anim 300ms ;
+    animation: anim 300ms ; 
 }
 .book-container.show{
     display: flex;
