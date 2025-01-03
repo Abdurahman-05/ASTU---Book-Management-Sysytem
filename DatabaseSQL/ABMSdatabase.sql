@@ -60,50 +60,6 @@ CREATE TABLE borrowed (
 );
 
 
-
-    -- Reduce AvailableCopies by 1
-    UPDATE Book
-    SET AvailableCopies = AvailableCopies - 1
-    WHERE BookID = NEW.BookID;
-END$$
-
-DELIMITER ;
-
--- Trigger: Update AvailableCopies when returning a book
-DELIMITER $$
-
-CREATE TRIGGER Before_Borrow_Update
-    BEFORE UPDATE ON Borrow
-    FOR EACH ROW
-BEGIN
-    IF NEW.Status = 'Returned' AND OLD.Status <> 'Returned' THEN
-        -- Increase AvailableCopies by 1 when the book is returned
-        UPDATE Book
-        SET AvailableCopies = AvailableCopies + 1
-        WHERE BookID = NEW.BookID;
-    END IF;
-END$$
-
-DELIMITER ;
-
--- Trigger: Automatically insert a fine into Fine Table if ReturnDate is late
-DELIMITER $$
-
-CREATE TRIGGER After_Borrow_Update_Fine
-    AFTER UPDATE ON Borrow
-    FOR EACH ROW
-BEGIN
-    IF NEW.Status = 'Returned' AND NEW.ReturnDate > DATE_ADD(NEW.CurrentDate, INTERVAL 14 DAY) THEN
-        -- Insert a fine record if the book is returned late
-        INSERT INTO Fine (StudID, BookID, FineAmount, FineDate)
-        VALUES (NEW.StudID, NEW.BookID, 10.00, CURDATE());
-    END IF;
-END$$
-
-DELIMITER ;
-
-
-
 delimiter //
 CREATE PROCEDURE addborrower(in id varchar(100) ,in nam varchar(100), in phone int ,out idii varchar(100))
 begin
@@ -237,27 +193,33 @@ CREATE VIEW borrowlist AS
         JOIN books b ON bo.book_id = b.book_id
 
 
+insert into U_ser(username,passwd) values('admin', '123')
 
-update book_pic set pic_url='/img/Campbell Biology.webp'  where pic_name='App01';
-update book_pic set pic_url='/img/chemistry The Central Science.jpg'  where pic_name='App02';
-update book_pic set pic_url='/img/James Stewart - Calculus - Early transcendentals (8th Edition)_0000.jpg'  where pic_name='App03';
-update book_pic set pic_url='/img/University Physics with Modern Physics.jpg'  where pic_name='App04';
-update book_pic set pic_url='/img/Code clean.jpg'  where pic_name='SE01';
-update book_pic set pic_url='/img/The Mythical Man-Month.jpg'  where pic_name='SE02';
-update book_pic set pic_url='/img/Comp.jpg'  where pic_name='CSE01';
-update book_pic set pic_url='/img/Introduction to Algorithms.jpg'  where pic_name='CSE02';
-update book_pic set pic_url='/img/Electric Machinery.jpg'  where pic_name='A01';
-update book_pic set pic_url='/img/Power System Analysis and Design.jpg'  where pic_name='A02';
-update book_pic set pic_url='/img/Architectural Graphics.jpg'  where pic_name='A03';
-update book_pic set pic_url='/img/Building Construction.jpg'  where pic_name='A04';
-update book_pic set pic_url='/img/Principles of Geotechnical Engineering.jpg'  where pic_name='CE01';
-update book_pic set pic_url='/img/Structural Analysis.webp'  where pic_name='CE02';
-update book_pic set pic_url='/img/Fundamentals of Thermodynamics.jpg' where pic_name='ME01';
-update book_pic set pic_url='/img/Mechanics of Materials.jpg' where pic_name='ME02';
-declare chk boolean default true
-call chek('Electric Machinery', chk)
-show chk
-select * from book_pic order by pic_name
+	
+insert into book_pic(pic_name,pic_url) values('App01','img/Campbell Biology.webp')
+insert into book_pic(pic_name,pic_url) values('App02','img/chemistry The Central Science.jpg')
+insert into book_pic(pic_name,pic_url) values('App03','img/James Stewart - Calculus - Early transcendentals (8th Edition)_0000.jpg')
+insert into book_pic(pic_name,pic_url) values('App04','img/University Physics with Modern Physics.jpg')
+insert into book_pic(pic_name,pic_url) values('SE01','img/Code clean.jpg')
+insert into book_pic(pic_name,pic_url) values('SE02','img/The Mythical Man-Month.jpg')
+insert into book_pic(pic_name,pic_url) values('CSE01','img/Computer Systems A Programmers Perspective.jpg')
+insert into book_pic(pic_name,pic_url) values('CSE02','img/Introduction to Algorithms.jpg')
+insert into book_pic(pic_name,pic_url) values('A01','img/Electric Machinery.jpg')
+insert into book_pic(pic_name,pic_url) values('A02','img/Power System Analysis and Design.jpg')
+insert into book_pic(pic_name,pic_url) values('A03','img/Architectural Graphics.jpg')
+insert into book_pic(pic_name,pic_url) values('A04','img/Building Construction.jpg')
+insert into book_pic(pic_name,pic_url) values('CE01','img/Principles of Geotechnical Engineering.jpg')
+insert into book_pic(pic_name,pic_url) values('CE02','img/Structural Analysis.webp')
+insert into book_pic(pic_name,pic_url) values('ME01','img/Fundamentals of Thermodynamics.jpg')
+insert into book_pic(pic_name,pic_url) values('ME02','img/Mechanics of Materials.jpg')
+
+insert into book_category(cat_name) values('SE')
+insert into book_category(cat_name) values('CSE')
+insert into book_category(cat_name) values('CE')
+insert into book_category(cat_name) values('Applied')
+insert into book_category(cat_name) values('ME')
+insert into book_category(cat_name) values('other')
+
 
 insert into books(cat_id,pic_name,book_name,book_author, book_quantity) values(1,'SE01','Clean Code: A Handbook of Agile Software Craftsmanship','Robert C. Martin',10);
 insert into books(cat_id,pic_name,book_name,book_author, book_quantity) values(1,'SE02','The Mythical Man-Month: Essays on Software Engineering','Frederick Brooks Jr.',12);
