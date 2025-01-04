@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Mangment System</title>
     <link rel="stylesheet" href="css/shared.css">
+    <script>
+    function validateForm() {
+        const pswd = document.querySelector('input[name="password"]');
+        const user = document.querySelector('input[name="user"]');
+        if (user.value.trim() === '') {
+            alert('User Name is required.');
+            return false;
+        }
+            if (pswd.value.trim() === '') {
+                alert('Password is required.');
+                return false;
+            }
+            return true;
+
+    }
+    </script>
     <style>
         body{
             background-image: linear-gradient(180deg, rgba(0, 0, 0,0.8), rgba(0,0,0,0.5)),url("img/book\ store.jpg");
@@ -102,14 +118,14 @@
 
         <h1>Login</h1>
     </section>
-    <form method="get" action="login_a" class="login-form">
+    <form method="get" action="login_a" class="login-form" onsubmit="return validateForm()">
         <div class="username">
             <label for="user_name">User Name</label>
-            <input type="text" id="user_name" name="user">
+            <input type="text" id="user_name" name="user" required>
         </div>
         <div class="Password">
             <label for="Password">Password   </label>
-            <input type="Password" id="Password" name="password">
+            <input type="Password" id="Password" name="password" required>
         </div>
         <button type="submit" class="login-btn">Login</button>
     </form>

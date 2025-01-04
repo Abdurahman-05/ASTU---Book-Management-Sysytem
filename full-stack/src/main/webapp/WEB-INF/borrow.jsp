@@ -1,4 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="jakarta.servlet.http.HttpServlet" %>
+<%
+    session = request.getSession(false);
+    if (session == null || session.getAttribute("user") == null) {
+        response.sendRedirect("index.html"); 
+        return; 
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +16,12 @@
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/borrow.css">
     <link rel="icon" href="img/logo.png" />
+<script>
+        function validateInput(event) {
+            const input = event.target;
+            input.value = input.value.replace(/[^0-9() -]/g, '');
+        }
+    </script>
 
 </head>
 <body>
@@ -43,7 +57,7 @@
             </div>
             <div>
               <label >Phone NUmber:
-              <input type="number" name="phone number" placeholder="09-32-43-54-65" class="phone">
+                  <input type="tel" name="phone number" placeholder="09-32-43-54-65" class="phone" maxlength="10" minlength="10" pattern="[0-9]{10}" oninput="validateInput(event)">
               </label>
             </div>
             <div>
@@ -59,24 +73,6 @@
              <button type="submit" class="borrow-btn">Borrow</button>
              </form>
             </section>
-
-            <!-- verificatoin modal -->
-
-             <div class="verifiaction">
-                <h1>Are you sure?</h1>
-                <h2 class="verify_name"></h2>
-                <h2 class="verify_id"></h2>
-                <h2 class="verify_phone"></h2>
-                <h2 class="verify_book"></h2>
-                <div class="verificatoin-btns">
-                    <button class="verificatoin-confirm verificatoin-btn" name="confirm">Confirm</button>
-                    <button class="verificatoin-cancel verificatoin-btn" name="cancel">Cancel</button>
-                </div>
-             </div>
-
-             <div class="back-drop"></div>
          </main>
-    <!--<script src="JS/borrow.js"></script>-->
-
-</body>
+   </body>
 </html>

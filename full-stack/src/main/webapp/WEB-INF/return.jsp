@@ -1,6 +1,15 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="jakarta.servlet.http.HttpServlet" %>
+<%
+    session = request.getSession(false);
+    if (session == null || session.getAttribute("user") == null) {
+        response.sendRedirect("index.html");
+        return;
+    }
+
+%>
 
 <!DOCTYPE html>
 <html lang="en">
