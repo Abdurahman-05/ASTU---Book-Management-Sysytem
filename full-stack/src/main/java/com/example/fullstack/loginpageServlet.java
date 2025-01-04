@@ -30,6 +30,8 @@ public class loginpageServlet extends HttpServlet {
                 String username = rs.getString("username");
                 String passwd = rs.getString("passwd");
                 if(username.equals(name) && passwd.equals(pswd)){
+                    HttpSession session = request.getSession();
+                    session.setAttribute("username", username);
                     String pic,bok_name,author;
                     int qunat,cat_id;
                     String sql="Select pic_url,book_name,book_author,book_quantity,cat_id from booklist";
